@@ -1,0 +1,72 @@
+Our first step is to make sure that we work with the correct Azure subscription before we change any settings. We'll use the az account list list command. By default, the command returns a JSON string. However, we'll format the output as a table to make the information easier to work with. Run the following command.
+
+Azure CLI
+
+Copy
+az account list --output table
+Recall that we used a pre-created resource group called learn-39997328-7566-46cd-81a9-457bac18a68f when we created our website. However, if you ever need to list all the resource groups in a subscription, then you'll run the az group list command.
+
+Azure CLI
+
+Copy
+az group list --output table
+Next, we'll list all the resources in the learn-39997328-7566-46cd-81a9-457bac18a68f using the az resource list command. The command will return a list of resources. By specifying, --resource-type we can filter the result to include only the resource information related to websites.
+
+Run the following command.
+
+Azure CLI
+
+Copy
+az resource list \
+    --resource-group learn-39997328-7566-46cd-81a9-457bac18a68f \
+    --resource-type Microsoft.Web/sites
+Here an example of the command's output:
+
+JSON
+
+Copy
+{
+"id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx/resourceGroups/learn-39997328-7566-46cd-81a9-457bac18a68f/providers/Microsoft.Web/sites/BlogFor",
+"identity": null,
+"kind": "app",
+"location": "centralus",
+"managedBy": null,
+"name": "MyWebApp",
+"plan": null,
+"properties": null,
+"resourceGroup": "learn-39997328-7566-46cd-81a9-457bac18a68f",
+"sku": null,
+"tags": null,
+"type": "Microsoft.Web/sites"
+}
+Copy the value of name. We'll use it in the next steps to first stop and then start our website.
+
+We'll use the az webapp stop command to stop the web application running in our app service. Replace <web app name> with the name of your web app you copied, then run this command to stop your web app.
+
+Azure CLI
+
+Copy
+az webapp stop \
+    --resource-group learn-39997328-7566-46cd-81a9-457bac18a68f \
+    --name <web app name>
+Open the website in a new browser tab. You'll find the URL to the site in the overview of the App service in the portal. You'll see a message in your browser that reads:
+
+Screenshot of a stopped App Service web app showing "Error 403 - This web app is stopped".
+
+Finally, let's start the web app by running the az webapp start command. Replace <web app name> with the name of your web app you copied, then run this command to start your web app.
+
+Azure CLI
+
+Copy
+az webapp start \
+    --resource-group learn-39997328-7566-46cd-81a9-457bac18a68f \
+    --name <web app name>
+Switch back to the tab for your website and refresh the page. Your website will be available after a couple of seconds.
+
+
+
+
+
+
+
+
